@@ -3,24 +3,39 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Angular2Final | Agua Blog</title>
+  <title>install mongodb by homebrew | Agua Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Angular 2.0 Final Release Now Live!Angular2 终于发正式版。但没心思去好好研究学习……
-这里是中文介绍 https://angular.cn/translate/cn/blog.html
-卓卓说该准备3.0了……">
+  <meta name="description" content="首先，安装homebrew
+1/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+详见官网。哈。
+然后是
+
+brew update 更新brew
+brew install mongodb 安装mongodb数据库
+brew services start">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Angular2Final">
-<meta property="og:url" content="http://huanghonghui.github.io/2016/09/19/Angular2Final/index.html">
+<meta property="og:title" content="install mongodb by homebrew">
+<meta property="og:url" content="http://huanghonghui.github.io/2016/09/21/install-mongodb-by-homebrew/index.html">
 <meta property="og:site_name" content="Agua Blog">
-<meta property="og:description" content="Angular 2.0 Final Release Now Live!Angular2 终于发正式版。但没心思去好好研究学习……
-这里是中文介绍 https://angular.cn/translate/cn/blog.html
-卓卓说该准备3.0了……">
-<meta property="og:updated_time" content="2016-09-19T10:19:35.000Z">
+<meta property="og:description" content="首先，安装homebrew
+1/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+详见官网。哈。
+然后是
+
+brew update 更新brew
+brew install mongodb 安装mongodb数据库
+brew services start">
+<meta property="og:updated_time" content="2016-09-21T01:59:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Angular2Final">
-<meta name="twitter:description" content="Angular 2.0 Final Release Now Live!Angular2 终于发正式版。但没心思去好好研究学习……
-这里是中文介绍 https://angular.cn/translate/cn/blog.html
-卓卓说该准备3.0了……">
+<meta name="twitter:title" content="install mongodb by homebrew">
+<meta name="twitter:description" content="首先，安装homebrew
+1/usr/bin/ruby -e &quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&quot;
+详见官网。哈。
+然后是
+
+brew update 更新brew
+brew install mongodb 安装mongodb数据库
+brew services start">
   
     <link rel="alternate" href="/atom.xml" title="Agua Blog" type="application/atom+xml">
   
@@ -69,10 +84,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Angular2Final" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-install-mongodb-by-homebrew" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2016/09/19/Angular2Final/" class="article-date">
-  <time datetime="2016-09-19T10:16:50.000Z" itemprop="datePublished">2016-09-19</time>
+    <a href="/2016/09/21/install-mongodb-by-homebrew/" class="article-date">
+  <time datetime="2016-09-21T01:54:35.000Z" itemprop="datePublished">2016-09-21</time>
 </a>
     
   </div>
@@ -83,7 +98,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Angular2Final
+      install mongodb by homebrew
     </h1>
   
 
@@ -91,14 +106,23 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4 id="Angular-2-0-Final-Release-Now-Live"><a href="#Angular-2-0-Final-Release-Now-Live" class="headerlink" title="Angular 2.0 Final Release Now Live!"></a>Angular 2.0 Final Release Now Live!</h4><p><a href="https://angular.io" target="_blank" rel="external">Angular2</a> 终于发正式版。但没心思去好好研究学习……</p>
-<p>这里是中文介绍 <a href="https://angular.cn/translate/cn/blog.html" target="_blank" rel="external">https://angular.cn/translate/cn/blog.html</a></p>
-<p>卓卓说该准备3.0了……</p>
+        <p>首先，安装<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">homebrew</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></div></pre></td></tr></table></figure>
+<p>详见官网。哈。</p>
+<p>然后是</p>
+<ol>
+<li>brew update 更新brew</li>
+<li>brew install mongodb 安装mongodb数据库</li>
+<li>brew services start mongodb 启动mongodb数据库</li>
+<li>brew services stop mongodb 停止mongodb数据库</li>
+</ol>
+<p>安装完会有提示</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">To have launchd start mongodb now and restart at login:</div><div class="line">  brew services start mongodb</div><div class="line">Or, <span class="keyword">if</span> you don<span class="string">'t want/need a background service you can just run:</span></div><div class="line">  mongod --config /usr/local/etc/mongod.conf</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/19/Angular2Final/" data-id="citc9ix720000q7s6dryemtaw" class="article-share-link">Delen</a>
+      <a data-url="http://huanghonghui.github.io/2016/09/21/install-mongodb-by-homebrew/" data-id="citc9ix7d0003q7s6n6kqq8gn" class="article-share-link">Delen</a>
       
       
     </footer>
@@ -107,19 +131,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/09/21/install-mongodb-by-homebrew/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Nieuwer</strong>
-      <div class="article-nav-title">
-        
-          install mongodb by homebrew
-        
-      </div>
-    </a>
   
-  
-    <a href="/2016/09/18/aaencode/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/09/19/Angular2Final/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Ouder</strong>
-      <div class="article-nav-title">aaencode</div>
+      <div class="article-nav-title">Angular2Final</div>
     </a>
   
 </nav>
