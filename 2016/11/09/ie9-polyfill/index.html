@@ -3,14 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Agua Blog</title>
+  <title>ie9-polyfill | Agua Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Agua Blog">
-<meta property="og:url" content="http://huanghonghui.github.io/index.html">
+  <meta name="description" content="IE总是坑人，在ie9以及之前的版本，居然typeof console.log是 &apos;object&apos;,
+真服了。
+而且不支持base64的一些方法。于是找到了以下的 polyfill 可以解决问题。
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ie9-polyfill">
+<meta property="og:url" content="http://huanghonghui.github.io/2016/11/09/ie9-polyfill/index.html">
 <meta property="og:site_name" content="Agua Blog">
+<meta property="og:description" content="IE总是坑人，在ie9以及之前的版本，居然typeof console.log是 &apos;object&apos;,
+真服了。
+而且不支持base64的一些方法。于是找到了以下的 polyfill 可以解决问题。
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455">
+<meta property="og:updated_time" content="2016-11-09T06:34:49.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Agua Blog">
+<meta name="twitter:title" content="ie9-polyfill">
+<meta name="twitter:description" content="IE总是坑人，在ie9以及之前的版本，居然typeof console.log是 &apos;object&apos;,
+真服了。
+而且不支持base64的一些方法。于是找到了以下的 polyfill 可以解决问题。
+12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455">
   
     <link rel="alternate" href="/atom.xml" title="Agua Blog" type="application/atom+xml">
   
@@ -59,9 +72,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-ie9-polyfill" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-ie9-polyfill" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/11/09/ie9-polyfill/" class="article-date">
   <time datetime="2016-11-09T06:31:12.000Z" itemprop="datePublished">2016-11-09</time>
@@ -74,8 +85,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/09/ie9-polyfill/">ie9-polyfill</a>
+    <h1 class="article-title" itemprop="name">
+      ie9-polyfill
     </h1>
   
 
@@ -97,228 +108,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-install-mongodb-by-homebrew" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/21/install-mongodb-by-homebrew/" class="article-date">
-  <time datetime="2016-09-21T01:54:35.000Z" itemprop="datePublished">2016-09-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/21/install-mongodb-by-homebrew/">install mongodb by homebrew</a>
-    </h1>
+    <a href="/2016/09/21/install-mongodb-by-homebrew/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Ancien</strong>
+      <div class="article-nav-title">install mongodb by homebrew</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>首先，安装<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">homebrew</a></p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></div></pre></td></tr></table></figure></p>
-<p>详见官网。哈。</p>
-<p>然后是</p>
-<ol>
-<li>brew update 更新brew</li>
-<li>brew install mongodb 安装mongodb数据库</li>
-<li>brew services start mongodb 启动mongodb数据库</li>
-<li>brew services stop mongodb 停止mongodb数据库</li>
-</ol>
-<p>安装完会有提示</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">To have launchd start mongodb now and restart at login:</div><div class="line">  brew services start mongodb</div><div class="line">Or, <span class="keyword">if</span> you don<span class="string">'t want/need a background service you can just run:</span></div><div class="line">  mongod --config /usr/local/etc/mongod.conf</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/21/install-mongodb-by-homebrew/" data-id="civajxtlw0005x4s6qrwitygu" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-Angular2Final" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/19/Angular2Final/" class="article-date">
-  <time datetime="2016-09-19T10:16:50.000Z" itemprop="datePublished">2016-09-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/19/Angular2Final/">Angular2Final</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4>Angular 2.0 Final Release Now Live!</h4>
-<p><a href="https://angular.io" target="_blank" rel="external">Angular2</a> 终于发正式版。但没心思去好好研究学习……</p>
-<p>这里是中文介绍 https://angular.cn/translate/cn/blog.html</p>
-<p>卓卓说该准备3.0了……</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/19/Angular2Final/" data-id="civajxtlg0000x4s632nif656" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-aaencode" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/18/aaencode/" class="article-date">
-  <time datetime="2016-09-18T09:45:19.000Z" itemprop="datePublished">2016-09-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/18/aaencode/">aaencode</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4>一个好玩的js混淆器</h4>
-<p><a href="http://utf-8.jp/public/aaencode.html" target="_blank" rel="external">aaencode</a> - Encode any JavaScript program to Japanese style emoticons (^_^)</p>
-<p>日本人写的。</p>
-<p>混淆前
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alert(<span class="string">"Hello, JavaScript"</span>)</div></pre></td></tr></table></figure></p>
-<p>混淆后
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ﾟωﾟﾉ= /｀ｍ´）ﾉ ~┻━┻   //*´∇｀*/ [&apos;_&apos;]; o=(ﾟｰﾟ)  =_=3; c=(ﾟΘﾟ) =(ﾟｰﾟ)-(ﾟｰﾟ); (ﾟДﾟ) =(ﾟΘﾟ)= (o^_^o)/ (o^_^o);(ﾟДﾟ)=&#123;ﾟΘﾟ: &apos;_&apos; ,ﾟωﾟﾉ : ((ﾟωﾟﾉ==3) +&apos;_&apos;) [ﾟΘﾟ] ,ﾟｰﾟﾉ :(ﾟωﾟﾉ+ &apos;_&apos;)[o^_^o -(ﾟΘﾟ)] ,ﾟДﾟﾉ:((ﾟｰﾟ==3) +&apos;_&apos;)[ﾟｰﾟ] &#125;; (ﾟДﾟ) [ﾟΘﾟ] =((ﾟωﾟﾉ==3) +&apos;_&apos;) [c^_^o];(ﾟДﾟ) [&apos;c&apos;] = ((ﾟДﾟ)+&apos;_&apos;) [ (ﾟｰﾟ)+(ﾟｰﾟ)-(ﾟΘﾟ) ];(ﾟДﾟ) [&apos;o&apos;] = ((ﾟДﾟ)+&apos;_&apos;) [ﾟΘﾟ];(ﾟoﾟ)=(ﾟДﾟ) [&apos;c&apos;]+(ﾟДﾟ) [&apos;o&apos;]+(ﾟωﾟﾉ +&apos;_&apos;)[ﾟΘﾟ]+ ((ﾟωﾟﾉ==3) +&apos;_&apos;) [ﾟｰﾟ] + ((ﾟДﾟ) +&apos;_&apos;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ ((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ]+((ﾟｰﾟ==3) +&apos;_&apos;) [(ﾟｰﾟ) - (ﾟΘﾟ)]+(ﾟДﾟ) [&apos;c&apos;]+((ﾟДﾟ)+&apos;_&apos;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ (ﾟДﾟ) [&apos;o&apos;]+((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ];(ﾟДﾟ) [&apos;_&apos;] =(o^_^o) [ﾟoﾟ] [ﾟoﾟ];(ﾟεﾟ)=((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ]+ (ﾟДﾟ) .ﾟДﾟﾉ+((ﾟДﾟ)+&apos;_&apos;) [(ﾟｰﾟ) + (ﾟｰﾟ)]+((ﾟｰﾟ==3) +&apos;_&apos;) [o^_^o -ﾟΘﾟ]+((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ]+ (ﾟωﾟﾉ +&apos;_&apos;) [ﾟΘﾟ]; (ﾟｰﾟ)+=(ﾟΘﾟ); (ﾟДﾟ)[ﾟεﾟ]=&apos;\\&apos;; (ﾟДﾟ).ﾟΘﾟﾉ=(ﾟДﾟ+ ﾟｰﾟ)[o^_^o -(ﾟΘﾟ)];(oﾟｰﾟo)=(ﾟωﾟﾉ +&apos;_&apos;)[c^_^o];(ﾟДﾟ) [ﾟoﾟ]=&apos;\&quot;&apos;;(ﾟДﾟ) [&apos;_&apos;] ( (ﾟДﾟ) [&apos;_&apos;] (ﾟεﾟ+(ﾟДﾟ)[ﾟoﾟ]+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ ((ﾟｰﾟ) + (o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) +(o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟoﾟ]) (ﾟΘﾟ)) (&apos;_&apos;);</div></pre></td></tr></table></figure></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/18/aaencode/" data-id="civajxtll0001x4s6l0av9d09" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world-1" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/18/hello-world-1/" class="article-date">
-  <time datetime="2016-09-18T06:31:18.000Z" itemprop="datePublished">2016-09-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/18/hello-world-1/">hello world</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Hello, see Hexo again.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/18/hello-world-1/" data-id="civajxtln0002x4s673neqn7d" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/09/18/hello-world/" class="article-date">
-  <time datetime="2016-09-18T06:16:20.000Z" itemprop="datePublished">2016-09-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2>Quick Start</h2>
-<h3>Create a new post</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure></p>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3>Run server</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure></p>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3>Generate static files</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure></p>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3>Deploy to remote sites</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure></p>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/18/hello-world/" data-id="civajxtlq0003x4s6lofcg858" class="article-share-link">Partager</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
 
 </section>
         
