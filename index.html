@@ -61,6 +61,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-webpack-handle-html" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/12/18/webpack-handle-html/" class="article-date">
+  <time datetime="2016-12-18T03:27:07.000Z" itemprop="datePublished">2016-12-18</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/18/webpack-handle-html/">webpack-handle-html</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>webpack 处理 html 有2种方式，</p>
+<h4 id="使用-file-loader-extract-loader-html-loader"><a href="#使用-file-loader-extract-loader-html-loader" class="headerlink" title="使用 file-loader, extract-loader, html-loader"></a>使用 file-loader, extract-loader, html-loader</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  test: <span class="regexp">/\.html$/</span>,</div><div class="line">  use: [</div><div class="line">    <span class="string">'file-loader?name=[name].[ext]'</span>,</div><div class="line">    <span class="string">'extract-loader?publicPath=/'</span>,</div><div class="line">    &#123;loader: <span class="string">'html-loader'</span>, query: &#123;</div><div class="line">      attrs: [<span class="string">'img:src'</span>, <span class="string">'link:href'</span>]</div><div class="line">    &#125;&#125;</div><div class="line">  ],</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不过这种方法不会把依赖的css和js注入到html里面，需要自己在html里面指定。</p>
+<h4 id="使用-html-webpack-plugin"><a href="#使用-html-webpack-plugin" class="headerlink" title="使用 html-webpack-plugin"></a>使用 html-webpack-plugin</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// https://github.com/ampedandwired/html-webpack-plugin</span></div><div class="line"><span class="keyword">new</span> HtmlWebpackPlugin(&#123;</div><div class="line">  filename: <span class="string">'index.html'</span>,</div><div class="line">  template: <span class="string">`<span class="subst">$&#123;htmlPath&#125;</span>/index.html`</span>,</div><div class="line">  chunks: [<span class="string">'main'</span>, <span class="string">'vendor'</span>],</div><div class="line">  inject: <span class="literal">true</span></div><div class="line">&#125;),</div><div class="line"><span class="keyword">new</span> HtmlWebpackPlugin(&#123;</div><div class="line">  filename: <span class="string">'user.html'</span>,</div><div class="line">  template: <span class="string">`<span class="subst">$&#123;htmlPath&#125;</span>/user.html`</span>,</div><div class="line">  chunks: [<span class="string">'user'</span>, <span class="string">'vendor'</span>],</div><div class="line">  inject: <span class="literal">true</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>另外需要配合 html-loader 来处理 html 中的图片地址和链接地址。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  test: <span class="regexp">/\.html$/</span>,</div><div class="line">  loader: <span class="string">'html-loader'</span>,</div><div class="line">  query: &#123;</div><div class="line">    attrs: [<span class="string">'img:src'</span>, <span class="string">'link:href'</span>]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h4 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h4><p>现在发现的问题是，2种方法都需要依赖入口配置，入口有配置才会输出html。<br>html-webpack-plugin 需要每个需要生成的文件配置一个插件。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://huanghonghui.github.io/2016/12/18/webpack-handle-html/" data-id="ciwu3wska0005nyf8y5fvg8nm" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-ie9-polyfill" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/11/09/ie9-polyfill/" class="article-date">
@@ -83,15 +125,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>IE总是坑人，在ie9以及之前的版本，居然<code>typeof console.log</code>是 'object',
-真服了。
-而且不支持base64的一些方法。于是找到了以下的 polyfill 可以解决问题。
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* eslint-disable */</span></div><div class="line"><span class="keyword">if</span> (<span class="built_in">window</span>) &#123;</div><div class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.console.log == <span class="string">'object'</span>) &#123;</div><div class="line">    <span class="built_in">window</span>.console.log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">    ;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">      <span class="keyword">var</span> object = <span class="built_in">window</span>; <span class="comment">// typeof exports != 'undefined' ? exports : self; // #8: web workers</span></div><div class="line">      <span class="keyword">var</span> chars = <span class="string">'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='</span>;</div><div class="line"></div><div class="line">      <span class="function"><span class="keyword">function</span> <span class="title">InvalidCharacterError</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.message = message;</div><div class="line">      &#125;</div><div class="line">      InvalidCharacterError.prototype = <span class="keyword">new</span> <span class="built_in">Error</span>;</div><div class="line">      InvalidCharacterError.prototype.name = <span class="string">'InvalidCharacterError'</span>;</div><div class="line"></div><div class="line">      <span class="comment">// encoder</span></div><div class="line">      <span class="comment">// [https://gist.github.com/999166] by [https://github.com/nignag]</span></div><div class="line">      object.btoa || (</div><div class="line">      object.btoa = <span class="function"><span class="keyword">function</span> (<span class="params">input</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> str = <span class="built_in">String</span>(input);</div><div class="line">        <span class="keyword">for</span> (</div><div class="line">          <span class="comment">// initialize result and counter</span></div><div class="line">          <span class="keyword">var</span> block, charCode, idx = <span class="number">0</span>, map = chars, output = <span class="string">''</span>;</div><div class="line">          <span class="comment">// if the next str index does not exist:</span></div><div class="line">          <span class="comment">//   change the mapping table to "="</span></div><div class="line">          <span class="comment">//   check if d has no fractional digits</span></div><div class="line">          str.charAt(idx | <span class="number">0</span>) || (map = <span class="string">'='</span>, idx % <span class="number">1</span>);</div><div class="line">          <span class="comment">// "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8</span></div><div class="line">          output += map.charAt(<span class="number">63</span> &amp; block &gt;&gt; <span class="number">8</span> - idx % <span class="number">1</span> * <span class="number">8</span>)</div><div class="line">        ) &#123;</div><div class="line">          charCode = str.charCodeAt(idx += <span class="number">3</span>/<span class="number">4</span>);</div><div class="line">          <span class="keyword">if</span> (charCode &gt; <span class="number">0xFF</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidCharacterError(<span class="string">"'btoa' failed: The string to be encoded contains characters outside of the Latin1 range."</span>);</div><div class="line">          &#125;</div><div class="line">          block = block &lt;&lt; <span class="number">8</span> | charCode;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> output;</div><div class="line">      &#125;);</div><div class="line"></div><div class="line">      <span class="comment">// decoder</span></div><div class="line">      <span class="comment">// [https://gist.github.com/1020396] by [https://github.com/atk]</span></div><div class="line">      object.atob || (</div><div class="line">      object.atob = <span class="function"><span class="keyword">function</span> (<span class="params">input</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> str = <span class="built_in">String</span>(input).replace(<span class="regexp">/=+$/</span>, <span class="string">''</span>);</div><div class="line">        <span class="keyword">if</span> (str.length % <span class="number">4</span> == <span class="number">1</span>) &#123;</div><div class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> InvalidCharacterError(<span class="string">"'atob' failed: The string to be decoded is not correctly encoded."</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (</div><div class="line">          <span class="comment">// initialize result and counters</span></div><div class="line">          <span class="keyword">var</span> bc = <span class="number">0</span>, bs, buffer, idx = <span class="number">0</span>, output = <span class="string">''</span>;</div><div class="line">          <span class="comment">// get next character</span></div><div class="line">          buffer = str.charAt(idx++);</div><div class="line">          <span class="comment">// character found in table? initialize bit storage and add its ascii value;</span></div><div class="line">          ~buffer &amp;&amp; (bs = bc % <span class="number">4</span> ? bs * <span class="number">64</span> + buffer : buffer,</div><div class="line">            <span class="comment">// and if not first of each 4 characters,</span></div><div class="line">            <span class="comment">// convert the first 8 bits to one ascii character</span></div><div class="line">            bc++ % <span class="number">4</span>) ? output += <span class="built_in">String</span>.fromCharCode(<span class="number">255</span> &amp; bs &gt;&gt; (<span class="number">-2</span> * bc &amp; <span class="number">6</span>)) : <span class="number">0</span></div><div class="line">        ) &#123;</div><div class="line">          <span class="comment">// try to find character in table (0-63, not found =&gt; -1)</span></div><div class="line">          buffer = chars.indexOf(buffer);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> output;</div><div class="line">      &#125;);</div><div class="line"></div><div class="line">    &#125;());</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>IE总是坑人，在ie9以及之前的版本，居然<code>typeof console.log</code>是 ‘object’,<br>真服了。<br>而且不支持base64的一些方法。于是找到了以下的 polyfill 可以解决问题。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* eslint-disable */</span></div><div class="line"><span class="keyword">if</span> (<span class="built_in">window</span>) &#123;</div><div class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="built_in">window</span>.console.log == <span class="string">'object'</span>) &#123;</div><div class="line">    <span class="built_in">window</span>.console.log = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;&#125;</div><div class="line">    ;(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">      <span class="keyword">var</span> object = <span class="built_in">window</span>; <span class="comment">// typeof exports != 'undefined' ? exports : self; // #8: web workers</span></div><div class="line">      <span class="keyword">var</span> chars = <span class="string">'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/='</span>;</div><div class="line"></div><div class="line">      <span class="function"><span class="keyword">function</span> <span class="title">InvalidCharacterError</span>(<span class="params">message</span>) </span>&#123;</div><div class="line">        <span class="keyword">this</span>.message = message;</div><div class="line">      &#125;</div><div class="line">      InvalidCharacterError.prototype = <span class="keyword">new</span> <span class="built_in">Error</span>;</div><div class="line">      InvalidCharacterError.prototype.name = <span class="string">'InvalidCharacterError'</span>;</div><div class="line"></div><div class="line">      <span class="comment">// encoder</span></div><div class="line">      <span class="comment">// [https://gist.github.com/999166] by [https://github.com/nignag]</span></div><div class="line">      object.btoa || (</div><div class="line">      object.btoa = <span class="function"><span class="keyword">function</span> (<span class="params">input</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> str = <span class="built_in">String</span>(input);</div><div class="line">        <span class="keyword">for</span> (</div><div class="line">          <span class="comment">// initialize result and counter</span></div><div class="line">          <span class="keyword">var</span> block, charCode, idx = <span class="number">0</span>, map = chars, output = <span class="string">''</span>;</div><div class="line">          <span class="comment">// if the next str index does not exist:</span></div><div class="line">          <span class="comment">//   change the mapping table to "="</span></div><div class="line">          <span class="comment">//   check if d has no fractional digits</span></div><div class="line">          str.charAt(idx | <span class="number">0</span>) || (map = <span class="string">'='</span>, idx % <span class="number">1</span>);</div><div class="line">          <span class="comment">// "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8</span></div><div class="line">          output += map.charAt(<span class="number">63</span> &amp; block &gt;&gt; <span class="number">8</span> - idx % <span class="number">1</span> * <span class="number">8</span>)</div><div class="line">        ) &#123;</div><div class="line">          charCode = str.charCodeAt(idx += <span class="number">3</span>/<span class="number">4</span>);</div><div class="line">          <span class="keyword">if</span> (charCode &gt; <span class="number">0xFF</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> InvalidCharacterError(<span class="string">"'btoa' failed: The string to be encoded contains characters outside of the Latin1 range."</span>);</div><div class="line">          &#125;</div><div class="line">          block = block &lt;&lt; <span class="number">8</span> | charCode;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> output;</div><div class="line">      &#125;);</div><div class="line"></div><div class="line">      <span class="comment">// decoder</span></div><div class="line">      <span class="comment">// [https://gist.github.com/1020396] by [https://github.com/atk]</span></div><div class="line">      object.atob || (</div><div class="line">      object.atob = <span class="function"><span class="keyword">function</span> (<span class="params">input</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> str = <span class="built_in">String</span>(input).replace(<span class="regexp">/=+$/</span>, <span class="string">''</span>);</div><div class="line">        <span class="keyword">if</span> (str.length % <span class="number">4</span> == <span class="number">1</span>) &#123;</div><div class="line">          <span class="keyword">throw</span> <span class="keyword">new</span> InvalidCharacterError(<span class="string">"'atob' failed: The string to be decoded is not correctly encoded."</span>);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span> (</div><div class="line">          <span class="comment">// initialize result and counters</span></div><div class="line">          <span class="keyword">var</span> bc = <span class="number">0</span>, bs, buffer, idx = <span class="number">0</span>, output = <span class="string">''</span>;</div><div class="line">          <span class="comment">// get next character</span></div><div class="line">          buffer = str.charAt(idx++);</div><div class="line">          <span class="comment">// character found in table? initialize bit storage and add its ascii value;</span></div><div class="line">          ~buffer &amp;&amp; (bs = bc % <span class="number">4</span> ? bs * <span class="number">64</span> + buffer : buffer,</div><div class="line">            <span class="comment">// and if not first of each 4 characters,</span></div><div class="line">            <span class="comment">// convert the first 8 bits to one ascii character</span></div><div class="line">            bc++ % <span class="number">4</span>) ? output += <span class="built_in">String</span>.fromCharCode(<span class="number">255</span> &amp; bs &gt;&gt; (<span class="number">-2</span> * bc &amp; <span class="number">6</span>)) : <span class="number">0</span></div><div class="line">        ) &#123;</div><div class="line">          <span class="comment">// try to find character in table (0-63, not found =&gt; -1)</span></div><div class="line">          buffer = chars.indexOf(buffer);</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> output;</div><div class="line">      &#125;);</div><div class="line"></div><div class="line">    &#125;());</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/11/09/ie9-polyfill/" data-id="civajxtlt0004x4s64nkwj6x2" class="article-share-link">Partager</a>
+      <a data-url="http://huanghonghui.github.io/2016/11/09/ie9-polyfill/" data-id="ciwu3wsk80004nyf8k7uoy1v5" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -124,7 +163,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>首先，安装<a href="http://brew.sh/index_zh-cn.html" target="_blank" rel="external">homebrew</a></p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/usr/bin/ruby <span class="_">-e</span> <span class="string">"<span class="variable">$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)</span>"</span></div></pre></td></tr></table></figure>
 <p>详见官网。哈。</p>
 <p>然后是</p>
 <ol>
@@ -134,12 +173,12 @@
 <li>brew services stop mongodb 停止mongodb数据库</li>
 </ol>
 <p>安装完会有提示</p>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">To have launchd start mongodb now and restart at login:</div><div class="line">  brew services start mongodb</div><div class="line">Or, <span class="keyword">if</span> you don<span class="string">'t want/need a background service you can just run:</span></div><div class="line">  mongod --config /usr/local/etc/mongod.conf</div></pre></td></tr></table></figure></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">To have launchd start mongodb now and restart at login:</div><div class="line">  brew services start mongodb</div><div class="line">Or, <span class="keyword">if</span> you don<span class="string">'t want/need a background service you can just run:</span></div><div class="line">  mongod --config /usr/local/etc/mongod.conf</div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/21/install-mongodb-by-homebrew/" data-id="civajxtlw0005x4s6qrwitygu" class="article-share-link">Partager</a>
+      <a data-url="http://huanghonghui.github.io/2016/09/21/install-mongodb-by-homebrew/" data-id="ciwu3wskb0006nyf8dugop25z" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -171,15 +210,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4>Angular 2.0 Final Release Now Live!</h4>
-<p><a href="https://angular.io" target="_blank" rel="external">Angular2</a> 终于发正式版。但没心思去好好研究学习……</p>
-<p>这里是中文介绍 https://angular.cn/translate/cn/blog.html</p>
+        <h4 id="Angular-2-0-Final-Release-Now-Live"><a href="#Angular-2-0-Final-Release-Now-Live" class="headerlink" title="Angular 2.0 Final Release Now Live!"></a>Angular 2.0 Final Release Now Live!</h4><p><a href="https://angular.io" target="_blank" rel="external">Angular2</a> 终于发正式版。但没心思去好好研究学习……</p>
+<p>这里是中文介绍 <a href="https://angular.cn/translate/cn/blog.html" target="_blank" rel="external">https://angular.cn/translate/cn/blog.html</a></p>
 <p>卓卓说该准备3.0了……</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/19/Angular2Final/" data-id="civajxtlg0000x4s632nif656" class="article-share-link">Partager</a>
+      <a data-url="http://huanghonghui.github.io/2016/09/19/Angular2Final/" data-id="ciwu3wsjo0001nyf8v6wu9uqo" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -211,18 +249,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h4>一个好玩的js混淆器</h4>
-<p><a href="http://utf-8.jp/public/aaencode.html" target="_blank" rel="external">aaencode</a> - Encode any JavaScript program to Japanese style emoticons (^_^)</p>
+        <h4 id="一个好玩的js混淆器"><a href="#一个好玩的js混淆器" class="headerlink" title="一个好玩的js混淆器"></a>一个好玩的js混淆器</h4><p><a href="http://utf-8.jp/public/aaencode.html" target="_blank" rel="external">aaencode</a> - Encode any JavaScript program to Japanese style emoticons (^_^)</p>
 <p>日本人写的。</p>
-<p>混淆前
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alert(<span class="string">"Hello, JavaScript"</span>)</div></pre></td></tr></table></figure></p>
-<p>混淆后
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ﾟωﾟﾉ= /｀ｍ´）ﾉ ~┻━┻   //*´∇｀*/ [&apos;_&apos;]; o=(ﾟｰﾟ)  =_=3; c=(ﾟΘﾟ) =(ﾟｰﾟ)-(ﾟｰﾟ); (ﾟДﾟ) =(ﾟΘﾟ)= (o^_^o)/ (o^_^o);(ﾟДﾟ)=&#123;ﾟΘﾟ: &apos;_&apos; ,ﾟωﾟﾉ : ((ﾟωﾟﾉ==3) +&apos;_&apos;) [ﾟΘﾟ] ,ﾟｰﾟﾉ :(ﾟωﾟﾉ+ &apos;_&apos;)[o^_^o -(ﾟΘﾟ)] ,ﾟДﾟﾉ:((ﾟｰﾟ==3) +&apos;_&apos;)[ﾟｰﾟ] &#125;; (ﾟДﾟ) [ﾟΘﾟ] =((ﾟωﾟﾉ==3) +&apos;_&apos;) [c^_^o];(ﾟДﾟ) [&apos;c&apos;] = ((ﾟДﾟ)+&apos;_&apos;) [ (ﾟｰﾟ)+(ﾟｰﾟ)-(ﾟΘﾟ) ];(ﾟДﾟ) [&apos;o&apos;] = ((ﾟДﾟ)+&apos;_&apos;) [ﾟΘﾟ];(ﾟoﾟ)=(ﾟДﾟ) [&apos;c&apos;]+(ﾟДﾟ) [&apos;o&apos;]+(ﾟωﾟﾉ +&apos;_&apos;)[ﾟΘﾟ]+ ((ﾟωﾟﾉ==3) +&apos;_&apos;) [ﾟｰﾟ] + ((ﾟДﾟ) +&apos;_&apos;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ ((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ]+((ﾟｰﾟ==3) +&apos;_&apos;) [(ﾟｰﾟ) - (ﾟΘﾟ)]+(ﾟДﾟ) [&apos;c&apos;]+((ﾟДﾟ)+&apos;_&apos;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ (ﾟДﾟ) [&apos;o&apos;]+((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ];(ﾟДﾟ) [&apos;_&apos;] =(o^_^o) [ﾟoﾟ] [ﾟoﾟ];(ﾟεﾟ)=((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ]+ (ﾟДﾟ) .ﾟДﾟﾉ+((ﾟДﾟ)+&apos;_&apos;) [(ﾟｰﾟ) + (ﾟｰﾟ)]+((ﾟｰﾟ==3) +&apos;_&apos;) [o^_^o -ﾟΘﾟ]+((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ]+ (ﾟωﾟﾉ +&apos;_&apos;) [ﾟΘﾟ]; (ﾟｰﾟ)+=(ﾟΘﾟ); (ﾟДﾟ)[ﾟεﾟ]=&apos;\\&apos;; (ﾟДﾟ).ﾟΘﾟﾉ=(ﾟДﾟ+ ﾟｰﾟ)[o^_^o -(ﾟΘﾟ)];(oﾟｰﾟo)=(ﾟωﾟﾉ +&apos;_&apos;)[c^_^o];(ﾟДﾟ) [ﾟoﾟ]=&apos;\&quot;&apos;;(ﾟДﾟ) [&apos;_&apos;] ( (ﾟДﾟ) [&apos;_&apos;] (ﾟεﾟ+(ﾟДﾟ)[ﾟoﾟ]+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ ((ﾟｰﾟ) + (o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) +(o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟoﾟ]) (ﾟΘﾟ)) (&apos;_&apos;);</div></pre></td></tr></table></figure></p>
+<p>混淆前<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alert(<span class="string">"Hello, JavaScript"</span>)</div></pre></td></tr></table></figure></p>
+<p>混淆后<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ﾟωﾟﾉ= /｀ｍ´）ﾉ ~┻━┻   //*´∇｀*/ [&apos;_&apos;]; o=(ﾟｰﾟ)  =_=3; c=(ﾟΘﾟ) =(ﾟｰﾟ)-(ﾟｰﾟ); (ﾟДﾟ) =(ﾟΘﾟ)= (o^_^o)/ (o^_^o);(ﾟДﾟ)=&#123;ﾟΘﾟ: &apos;_&apos; ,ﾟωﾟﾉ : ((ﾟωﾟﾉ==3) +&apos;_&apos;) [ﾟΘﾟ] ,ﾟｰﾟﾉ :(ﾟωﾟﾉ+ &apos;_&apos;)[o^_^o -(ﾟΘﾟ)] ,ﾟДﾟﾉ:((ﾟｰﾟ==3) +&apos;_&apos;)[ﾟｰﾟ] &#125;; (ﾟДﾟ) [ﾟΘﾟ] =((ﾟωﾟﾉ==3) +&apos;_&apos;) [c^_^o];(ﾟДﾟ) [&apos;c&apos;] = ((ﾟДﾟ)+&apos;_&apos;) [ (ﾟｰﾟ)+(ﾟｰﾟ)-(ﾟΘﾟ) ];(ﾟДﾟ) [&apos;o&apos;] = ((ﾟДﾟ)+&apos;_&apos;) [ﾟΘﾟ];(ﾟoﾟ)=(ﾟДﾟ) [&apos;c&apos;]+(ﾟДﾟ) [&apos;o&apos;]+(ﾟωﾟﾉ +&apos;_&apos;)[ﾟΘﾟ]+ ((ﾟωﾟﾉ==3) +&apos;_&apos;) [ﾟｰﾟ] + ((ﾟДﾟ) +&apos;_&apos;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ ((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ]+((ﾟｰﾟ==3) +&apos;_&apos;) [(ﾟｰﾟ) - (ﾟΘﾟ)]+(ﾟДﾟ) [&apos;c&apos;]+((ﾟДﾟ)+&apos;_&apos;) [(ﾟｰﾟ)+(ﾟｰﾟ)]+ (ﾟДﾟ) [&apos;o&apos;]+((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ];(ﾟДﾟ) [&apos;_&apos;] =(o^_^o) [ﾟoﾟ] [ﾟoﾟ];(ﾟεﾟ)=((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ]+ (ﾟДﾟ) .ﾟДﾟﾉ+((ﾟДﾟ)+&apos;_&apos;) [(ﾟｰﾟ) + (ﾟｰﾟ)]+((ﾟｰﾟ==3) +&apos;_&apos;) [o^_^o -ﾟΘﾟ]+((ﾟｰﾟ==3) +&apos;_&apos;) [ﾟΘﾟ]+ (ﾟωﾟﾉ +&apos;_&apos;) [ﾟΘﾟ]; (ﾟｰﾟ)+=(ﾟΘﾟ); (ﾟДﾟ)[ﾟεﾟ]=&apos;\\&apos;; (ﾟДﾟ).ﾟΘﾟﾉ=(ﾟДﾟ+ ﾟｰﾟ)[o^_^o -(ﾟΘﾟ)];(oﾟｰﾟo)=(ﾟωﾟﾉ +&apos;_&apos;)[c^_^o];(ﾟДﾟ) [ﾟoﾟ]=&apos;\&quot;&apos;;(ﾟДﾟ) [&apos;_&apos;] ( (ﾟДﾟ) [&apos;_&apos;] (ﾟεﾟ+(ﾟДﾟ)[ﾟoﾟ]+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ ((ﾟｰﾟ) + (o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) +(o^_^o))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ (ﾟｰﾟ)+ (o^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (c^_^o)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟΘﾟ)+ ((o^_^o) +(o^_^o))+ (ﾟｰﾟ)+ (ﾟДﾟ)[ﾟεﾟ]+(ﾟｰﾟ)+ ((o^_^o) - (ﾟΘﾟ))+ (ﾟДﾟ)[ﾟεﾟ]+((ﾟｰﾟ) + (ﾟΘﾟ))+ (ﾟΘﾟ)+ (ﾟДﾟ)[ﾟoﾟ]) (ﾟΘﾟ)) (&apos;_&apos;);</div></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/18/aaencode/" data-id="civajxtll0001x4s6l0av9d09" class="article-share-link">Partager</a>
+      <a data-url="http://huanghonghui.github.io/2016/09/18/aaencode/" data-id="ciwu3wsjk0000nyf8g4w6w6jg" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -259,7 +294,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/18/hello-world-1/" data-id="civajxtln0002x4s673neqn7d" class="article-share-link">Partager</a>
+      <a data-url="http://huanghonghui.github.io/2016/09/18/hello-world-1/" data-id="ciwu3wsk70003nyf87gjgs9jl" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -292,24 +327,19 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2>Quick Start</h2>
-<h3>Create a new post</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure></p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3>Run server</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3>Generate static files</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3>Deploy to remote sites</h3>
-<p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
 <p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://huanghonghui.github.io/2016/09/18/hello-world/" data-id="civajxtlq0003x4s6lofcg858" class="article-share-link">Partager</a>
+      <a data-url="http://huanghonghui.github.io/2016/09/18/hello-world/" data-id="ciwu3wsk60002nyf88yrcu7iw" class="article-share-link">Partager</a>
       
       
     </footer>
@@ -336,7 +366,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">十二月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/09/">九月 2016</a></li></ul>
     </div>
   </div>
 
@@ -347,6 +377,10 @@
     <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2016/12/18/webpack-handle-html/">webpack-handle-html</a>
+          </li>
         
           <li>
             <a href="/2016/11/09/ie9-polyfill/">ie9-polyfill</a>
@@ -362,10 +396,6 @@
         
           <li>
             <a href="/2016/09/18/aaencode/">aaencode</a>
-          </li>
-        
-          <li>
-            <a href="/2016/09/18/hello-world-1/">hello world</a>
           </li>
         
       </ul>
